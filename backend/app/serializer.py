@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Product
-from rest_framework_simplejwt.views import RefreshToken
+from rest_framework_simplejwt import RefreshToken
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

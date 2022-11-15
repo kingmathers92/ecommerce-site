@@ -15,7 +15,7 @@ import { addToCart, removeFromCart } from "../../actions/CartActions";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function CartSreen() {
-  let location = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
   const quantity = location.search ? Number(location.search.split("=")[1]) : 1;

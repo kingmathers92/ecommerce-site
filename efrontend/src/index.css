@@ -1,0 +1,17 @@
+main {
+  min-height: 80vh;
+}
+
+img {
+  width: 250px;
+  height: 180px;
+}
+
+.imgCustom {
+  width: 500px;
+  height: 400px;
+}
+
+.navCustom {
+  height: 60px;
+}

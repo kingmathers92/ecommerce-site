@@ -5,18 +5,19 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 //import products from "../../products";
 import Message from "../Message";
 import Loader from "../Loader";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { login } from "../../actions/UserActions";
 import LoginForm from "../LoginForm";
 
 function LoginScreen() {
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { search } = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = searchParams.get(search.split("=")) || 1;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
@@ -24,8 +25,10 @@ function LoginScreen() {
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
+      searchParams.delete("userInfo");
+      setSearchParams(searchParams);
     }
-  }, [navigate, userInfo, redirect]);
+  }, [navigate, userInfo, redirect, searchParams, setSearchParams]);
 
   const submitHandler = (e) => {
     e.preventDefault();

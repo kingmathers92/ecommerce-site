@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   Row,
   Col,
@@ -15,20 +15,26 @@ import { addToCart, removeFromCart } from "../../actions/CartActions";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function CartSreen() {
-  const location = useLocation();
+  const { search } = useLocation();
   const navigate = useNavigate();
-  const { id } = useParams();
-  const quantity = location.search ? Number(location.search.split("=")[1]) : 1;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { productid } = useParams();
+  const quantity = searchParams.get(search.split("=")) || 1;
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  useEffect(() => {
-    if (id) {
-      dispatch(addToCart(id, quantity));
-    }
-  }, [dispatch, id, quantity]);
+  useEffect(
+    (id) => {
+      if (quantity) {
+        dispatch(addToCart(productid, quantity));
+        searchParams.delete("quantity");
+        setSearchParams(searchParams);
+      }
+    },
+    [dispatch, productid, quantity, searchParams, setSearchParams]
+  );
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));

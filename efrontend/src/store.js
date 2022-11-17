@@ -12,12 +12,14 @@ import {
 } from "./reducers/ProductReducers";
 import { cartReducer } from "./reducers/CartReducers";
 import { userLoginReducers } from "./reducers/UserReducers";
+import { userRegisterReducers } from "./reducers/UserReducers";
 
 const reducer = combineReducers({
   productList: productListReducers,
   productDetails: productDetailsReducers,
   cart: cartReducer,
   userLogin: userLoginReducers,
+  userRegister: userRegisterReducers,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
@@ -30,7 +32,7 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
-  userInfo: { userInfo: userInfoFromStorage },
+  userLogin: { userInfo: userInfoFromStorage },
 };
 const middleware = [thunk];
 const store = createStore(

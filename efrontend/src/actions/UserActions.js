@@ -11,6 +11,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_REQUEST,
     });
+
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -19,7 +20,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       "/api/users/login/",
-      // eslint-disable-next-line
+
       { username: email, password: password },
       config
     );

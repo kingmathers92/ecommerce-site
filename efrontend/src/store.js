@@ -17,7 +17,7 @@ const reducer = combineReducers({
   productList: productListReducers,
   productDetails: productDetailsReducers,
   cart: cartReducer,
-  user: userLoginReducers,
+  userLogin: userLoginReducers,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

@@ -5,10 +5,10 @@ import {
   USER_LOGOUT,
 } from "../constants/UserConstants";
 
-export const userLoginReducers = (state = { userInfo: [] }, action) => {
+export const userLoginReducers = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loading: true, user: [] };
+      return { loading: true };
 
     case USER_LOGIN_SUCCESS:
       return { loading: false, userInfo: action.payload };

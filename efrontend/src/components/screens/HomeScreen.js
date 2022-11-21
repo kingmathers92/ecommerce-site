@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 //import products from "../../products";
 import { Row, Col } from "react-bootstrap";
 import Product from "../Product";

@@ -4,14 +4,11 @@ import Message from "../Message";
 import Loader from "../Loader";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+//import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { register } from "../../actions/UserActions";
 import FormContainer from "../LoginForm";
 
 function RegisterScreen({ location, history }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { search } = useLocation();
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,18 +16,16 @@ function RegisterScreen({ location, history }) {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
 
-  const redirect = searchParams.get(search.split("=")) || 1;
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userRegister = useSelector((state) => state.userRegister);
   const { error, loading, userInfo } = userRegister;
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
-      searchParams.delete("userInfo");
-      setSearchParams(searchParams);
+      history.push(redirect);
     }
-  }, [navigate, userInfo, redirect, searchParams, setSearchParams]);
+  }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -102,7 +97,7 @@ function RegisterScreen({ location, history }) {
           <Col>
             Already User?
             <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-              Sign In
+              &nbsp;Sign In
             </Link>
           </Col>
         </Row>

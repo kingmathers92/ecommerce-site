@@ -1,7 +1,7 @@
 import "./App.css";
 import "./index.css";
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import HomeScreen from "./components/screens/HomeScreen";
@@ -16,16 +16,11 @@ function App() {
       <Header />
       <main className="my-3">
         <Container>
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/login" element={<LoginScreen />} />
-            <Route path="/register" element={<RegisterScreen />} />
-            <Route path="/product/:id" element={<ProductScreen />} />
-            <Route path="/cart">
-              <Route path=":productid" element={<CartScreen />} />
-              <Route index element={<CartScreen />} />
-            </Route>
-          </Routes>
+          <Route path="/" component={HomeScreen} exact />
+          <Route path="/login" component={LoginScreen} exact />
+          <Route path="/register" component={RegisterScreen} exact />
+          <Route path="/product/:id" component={ProductScreen} exact />
+          <Route path="/cart/:id?" component={CartScreen} exact />
         </Container>
       </main>
       <Footer />

@@ -5,30 +5,25 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 //import products from "../../products";
 import Message from "../Message";
 import Loader from "../Loader";
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+//import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { login } from "../../actions/UserActions";
 import LoginForm from "../LoginForm";
 
-function LoginScreen() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { search } = useLocation();
-  const navigate = useNavigate();
+function LoginScreen({ location, history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const redirect = searchParams.get(search.split("=")) || 1;
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
-      searchParams.delete("userInfo");
-      setSearchParams(searchParams);
+      history.push(redirect);
     }
-  }, [navigate, userInfo, redirect, searchParams, setSearchParams]);
+  }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -71,7 +66,7 @@ function LoginScreen() {
         <Col>
           New Customer?
           <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register
+            &nbsp;Register
           </Link>
         </Col>
       </Row>

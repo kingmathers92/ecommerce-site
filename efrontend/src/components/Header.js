@@ -11,6 +11,7 @@ function Header() {
   const logoutHandler = () => {
     dispatch(logout());
   };
+
   return (
     <div>
       <Navbar bg="dark" variant="dark" className="navCustom">

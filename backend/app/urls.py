@@ -1,15 +1,19 @@
 from django.urls import path
-from app import views
+from .views import ProductFilter, StripeCheckoutView, getRoutes, registerUser, getProducts, getProduct, getUserProfile, getUsers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
 )
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-path('', views.getRoutes, name="get-routes"),
-path('users/register/', views.registerUser, name="register"),
-path('users/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-path('products/', views.getProducts, name="get-products"),
-path('products/<str:pk>', views.getProduct, name="get-product"),
-path('user/profile/', views.getUserProfile, name="get-user-profile"),
-path('users/', views.getUsers, name="get-users"),
+    path('', getRoutes, name="get-routes"),
+    path('users/register/', registerUser, name="register"),
+    path('users/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('products/', getProducts, name="get-products"),
+    path('products/<str:pk>', getProduct, name="get-product"),
+    path('user/profile/', getUserProfile, name="get-user-profile"),
+    path('users/', getUsers, name="get-users"),
+    path('search/', ProductFilter.as_view(), name="search-product"),
+    path('create-checkout-session/<pk>/',
+         csrf_exempt(StripeCheckoutView.as_view()), name='checkout_session'),
 ]

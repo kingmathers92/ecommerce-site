@@ -13,16 +13,14 @@ import {
 import Rating from "../Rating";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../Message";
-import Loader from "../Loader";
 import { listProductDetails } from "../../actions/ProductAction";
 import { productDetailsReducers } from "../../reducers/ProductReducers";
-//import { useNavigate } from "react-router-dom";
 
 function ProductScreen({ match, history }) {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const { error, product } = productDetails;
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
@@ -36,9 +34,7 @@ function ProductScreen({ match, history }) {
       <Link to="/" className="btn btn-dark my-3">
         Go Back
       </Link>
-      {loading ? (
-        <Loader />
-      ) : error ? (
+      {error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>

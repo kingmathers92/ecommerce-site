@@ -54,7 +54,7 @@ export const register = (name, email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        //Accept: "application/json, text/plain, */*",
+        Accept: "application/json, text/plain, */*",
         "Content-Type": "multipart/form-data",
       },
     };

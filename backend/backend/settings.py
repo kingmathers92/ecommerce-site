@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,12 +42,14 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'rest_framework',
     "corsheaders",
+    'django_filters',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.permissions.AllowAny',
     )
 }
 
@@ -63,7 +66,6 @@ MIDDLEWARE = [
 ]
 
 
-from datetime import timedelta
 ...
 
 SIMPLE_JWT = {
@@ -74,7 +76,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
 
     'ALGORITHM': 'HS256',
-    #'SIGNING_KEY': SECRET_KEY,
+    # 'SIGNING_KEY': SECRET_KEY,
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
@@ -122,10 +124,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'my_db',
+        'USER': 'postgres',
+        'PASSWORD': 'django101',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -179,5 +192,10 @@ MEDIA_ROOT = 'static/images'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STRIPE_SECRET_KEY = "sk_test_51MAt6AJU3RVFqD4Tz8TCWE7PL3xNn5iYvKe7r9ZUKN6dIPOm2AcFgfbiHlU43H1tEgbMKG93o8KNduJr86UFWbzc00RmWxOLY2 "
+STRIPE_PUBLIC_KEY = "pk_test_51MAt6AJU3RVFqD4TZZuEmbyaEWoQDGs06vruWuwLIgUKycVbr7xKg6Xo46D8LOLL7nu6GSKPAiUhiocGeoFyIvKg00VKFbEcSw"
+STRIPE_WEBHOOK_SECRET = "whsec_699980f94fcbeb67d894d3f89a0124b95c5d3fe1d0964d6f4bcac55ef09698a6"
+
+SITE_URL = "http://127.0.0.1:3000"
 
 CORS_ALLOW_ALL_ORIGINS = True

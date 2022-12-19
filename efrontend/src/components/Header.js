@@ -1,10 +1,22 @@
-import React from "react";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+  Form,
+  Button,
+} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
-function Header() {
+function Header({ theme, setTheme }) {
+  const [searchResults, setSearchResults] = useState("");
+  const handleSearch = (e) => {
+    setSearchResults(e.target.value);
+  };
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const dispatch = useDispatch();
@@ -12,13 +24,30 @@ function Header() {
     dispatch(logout());
   };
 
+  const toggleDarkMode = (checked: boolean) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   return (
     <div>
-      <Navbar bg="dark" variant="dark" className="navCustom">
+      <Navbar
+        bg={theme === "light" ? "light" : "dark"}
+        variant={theme === "light" ? "light" : "dark"}
+      >
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>eCommerce</Navbar.Brand>
           </LinkContainer>
+          <Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+              onChange={handleSearch}
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -53,6 +82,16 @@ function Header() {
                   </Nav.Link>
                 </LinkContainer>
               )}
+              <Nav.Link
+              //onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
+                <DarkModeSwitch
+                  style={{ marginBottom: "0rem" }}
+                  checked={theme === "dark"}
+                  onChange={toggleDarkMode}
+                  size={25}
+                />
+              </Nav.Link>{" "}
             </Nav>
           </Navbar.Collapse>
         </Container>

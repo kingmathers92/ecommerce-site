@@ -15,3 +15,46 @@ img {
 .navCustom {
   height: 60px;
 }
+
+/* Light theme */
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+/* Dark theme */
+.dark-theme {
+  background-color: #343A40;
+  color: white;
+}
+
+/* Adjust the colors of specific elements based on the theme */
+ .light-theme h1 {
+  color: #343A40;
+}
+
+.dark-theme h1 {
+  color: white;
+}
+
+.light-theme a {
+  color: #343A40;
+}
+
+.dark-theme a {
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #343A40;
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: #343A40;
+  }
+}

@@ -1,5 +1,6 @@
 import "./App.css";
 import "./index.css";
+import React, { lazy, Suspense, useState } from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -7,15 +8,18 @@ import Header from "./components/Header";
 import LoginScreen from "./components/screens/LoginScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import Loader from "./components/Loader";
-import React, { lazy, Suspense } from "react";
 const Home = lazy(() => import("./components/screens/HomeScreen"));
 const Cart = lazy(() => import("./components/screens/CartSreen"));
 const Product = lazy(() => import("./components/screens/ProductScreen"));
+// const SearchContext = createContext([]);
 
 function App() {
+  const [theme, setTheme] = useState("light");
+  document.body.className = theme === "light" ? "light-theme" : "dark-theme";
+  // const [searchResults, setSearchResults] = useState([]);
   return (
     <Router>
-      <Header />
+      <Header theme={theme} setTheme={setTheme} />
       <main className="my-3">
         <Suspense fallback={<Loader />}>
           <Container>

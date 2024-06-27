@@ -1,3 +1,35 @@
+:root {
+  --background: white;
+  --text-primary: black;
+  --text-secondary: royalblue;
+  --accent: purple;
+}
+
+[theme='dark'] {
+  --background: black;
+  --text-primary: white;
+  --text-secondary: grey;
+  --accent: darkred;
+}
+
+App {
+  color: var(--text-primary);
+  background-color: var(--background);
+  font-size: large;
+  font-weight: bold;
+  padding: 20px;
+  height: calc(100vh - 40px);
+  transition: all .5s;
+}
+
+button {
+  color: var(--text-primary);
+  background-color: var(--background);
+  border: 2px var(--text-primary) solid;
+  float: right;
+  transition: all .5s;
+}
+
 main {
   min-height: 80vh;
 }
@@ -16,6 +48,18 @@ img {
   height: 60px;
 }
 
+.custom-search-input {
+  background-color: #f8f9fa;
+  border: 1px solid rgb(43, 168, 18);
+  border-radius: 30px;
+  width: 300px;
+}
+
+.custom-search-btn {
+  border: 1px solid #ccc;
+  border-radius: 30px;
+}
+
 /* Light theme */
 .light-theme {
   background-color: white;
@@ -27,8 +71,11 @@ img {
   background-color: #343A40;
   color: white;
 }
+.dark-theme .navCstm {
+  background-color: #343A40;
+  //color: white;
+}
 
-/* Adjust the colors of specific elements based on the theme */
  .light-theme h1 {
   color: #343A40;
 }
@@ -43,6 +90,9 @@ img {
 
 .dark-theme a {
   color: white;
+}
+.dark-theme .crd {
+  background-color: #343A40;
 }
 
 @media (prefers-color-scheme: dark) {

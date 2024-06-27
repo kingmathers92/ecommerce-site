@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'app.apps.AppConfig',
     'rest_framework',
+    'rest_framework_simplejwt',
     "corsheaders",
     'django_filters',
 ]

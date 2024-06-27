@@ -14,12 +14,18 @@ const Product = lazy(() => import("./components/screens/ProductScreen"));
 // const SearchContext = createContext([]);
 
 function App() {
+  const [searchResults, setSearchResults] = useState([]);
   const [theme, setTheme] = useState("light");
   document.body.className = theme === "light" ? "light-theme" : "dark-theme";
-  // const [searchResults, setSearchResults] = useState([]);
+
   return (
     <Router>
-      <Header theme={theme} setTheme={setTheme} />
+      <Header
+        theme={theme}
+        setTheme={setTheme}
+        searchResults={searchResults}
+        setSearchResults={setSearchResults}
+      />
       <main className="my-3">
         <Suspense fallback={<Loader />}>
           <Container>

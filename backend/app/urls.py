@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProductFilter, StripeCheckoutView, getRoutes, registerUser, getProducts, getProduct, getUserProfile, getUsers
+from .views import ProductFilter, StripeCheckoutView, getRoutes, registerUser, getProducts, getProduct, getUserProfile, getUsers, get_user_by_id
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
 )
@@ -13,6 +13,7 @@ urlpatterns = [
     path('products/<str:pk>', getProduct, name="get-product"),
     path('user/profile/', getUserProfile, name="get-user-profile"),
     path('users/', getUsers, name="get-users"),
+    path('<str:pk>/', get_user_by_id, name='get-user-id'),
     path('search/', ProductFilter.as_view(), name="search-product"),
     path('create-checkout-session/<pk>/',
          csrf_exempt(StripeCheckoutView.as_view()), name='checkout_session'),

@@ -22,9 +22,16 @@ const reducer = combineReducers({
   userRegister: userRegisterReducers,
 });
 
-const cartItemsFromStorage = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems"))
-  : [];
+let cartItemsFromStorage = [];
+if (localStorage.getItem("cartItems")) {
+  try {
+    cartItemsFromStorage = JSON.parse(localStorage.getItem("cartItems"));
+  } catch (e) {
+    console.log("Error parsing cart items from local storage:", e);
+  }
+} else {
+  localStorage.setItem("cartItems", JSON.stringify(cartItemsFromStorage));
+}
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))

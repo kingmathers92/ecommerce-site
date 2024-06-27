@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Form } from "react-bootstrap";
-//import products from "../../products";
 import Message from "../Message";
 import Loader from "../Loader";
-//import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { login } from "../../actions/UserActions";
 import LoginForm from "../LoginForm";
 

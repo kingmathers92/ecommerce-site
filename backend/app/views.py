@@ -55,6 +55,17 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return data
 
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        token['message'] = "Hello Proshop"
+        # ...
+
+        return token
+
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -101,6 +112,22 @@ def registerUser(request):
     except:
         message = {'details': 'USER WITH THIS EMAIL ALREADY EXITS!'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def get_user_by_id(request, pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
 
 
 # This is your test secret API key.

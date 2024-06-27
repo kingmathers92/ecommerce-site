@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Navbar,
   Nav,
@@ -12,8 +12,8 @@ import { logout } from "../actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 
-function Header({ theme, setTheme }) {
-  const [searchResults, setSearchResults] = useState("");
+function Header({ theme, setTheme, searchResults, setSearchResults }) {
+  //const [searchResults, setSearchResults] = useState("");
   const handleSearch = (e) => {
     setSearchResults(e.target.value);
   };
@@ -38,15 +38,27 @@ function Header({ theme, setTheme }) {
           <LinkContainer to="/">
             <Navbar.Brand>eCommerce</Navbar.Brand>
           </LinkContainer>
-          <Form className="d-flex">
+          <Form
+            className="d-flex"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSearchResults(searchResults);
+            }}
+          >
             <Form.Control
               type="search"
-              placeholder="Search"
-              className="me-2"
+              placeholder="Enter your search here"
+              className="me-2 custom-search-input"
               aria-label="Search"
               onChange={handleSearch}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button
+              className="custom-search-btn"
+              variant="outline-success"
+              type="submit"
+            >
+              Search
+            </Button>
           </Form>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -66,7 +78,11 @@ function Header({ theme, setTheme }) {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
+                <NavDropdown
+                  title={userInfo.name}
+                  id="username"
+                  className="navCstm"
+                >
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
@@ -82,16 +98,14 @@ function Header({ theme, setTheme }) {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              <Nav.Link
-              //onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              >
+              <Nav.Link>
                 <DarkModeSwitch
-                  style={{ marginBottom: "0rem" }}
+                  //style={{ marginTop: "0rem" }}
                   checked={theme === "dark"}
                   onChange={toggleDarkMode}
                   size={25}
                 />
-              </Nav.Link>{" "}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

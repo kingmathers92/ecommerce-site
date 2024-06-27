@@ -22,6 +22,9 @@ function CartSreen({ match, location, history }) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const userLogin = useSelector((state) => state.user);
+  const userInfo = userLogin?.userInfo;
+
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, quantity));
@@ -31,21 +34,23 @@ function CartSreen({ match, location, history }) {
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
-  // const checkoutHandler = () => {
-  //   history.push{`${API_URL}/checkout/create-checkout-session/`};
-  // };
+
+  const filteredCartItems = cartItems.filter(
+    (item) => item.user === userInfo?._id
+  );
+
   return (
     <Form action={`${API_URL}/api/create-checkout-session/`} method="POST">
       <Row>
         <Col md={8}>
           <h1>Shopping Cart</h1>
-          {cartItems.length === 0 ? (
+          {filteredCartItems.length === 0 ? (
             <Message variant="info">
               Your cart is empty <Link to="/">Go Back</Link>
             </Message>
           ) : (
             <ListGroup variant="flush">
-              {cartItems.map((item) => (
+              {filteredCartItems.map((item) => (
                 <ListGroup.Item key={item.product}>
                   <Row>
                     <Col md={2}>
@@ -93,11 +98,14 @@ function CartSreen({ match, location, history }) {
               <ListGroup.Item>
                 <h2>
                   Subtotal (
-                  {cartItems.reduce((acc, item) => acc + item.quantity, 0)})
-                  items
+                  {filteredCartItems.reduce(
+                    (acc, item) => acc + item.quantity,
+                    0
+                  )}
+                  ) items
                 </h2>
                 $
-                {cartItems
+                {filteredCartItems
                   .reduce((acc, item) => acc + item.quantity * item.price, 0)
                   .toFixed(2)}
               </ListGroup.Item>

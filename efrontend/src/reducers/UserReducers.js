@@ -14,9 +14,8 @@ export const userLoginReducers = (state = {}, action) => {
       return { laoding: true };
     case USER_LOGIN_SUCCESS:
       return {
-        laoding: false,
-        ...state,
-        userInfo: { ...action.payload },
+        loading: false,
+        userInfo: action.payload,
       };
     case USER_LOGIN_FAIL:
       return { laoding: false, error: action.payload };

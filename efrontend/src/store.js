@@ -3,7 +3,6 @@ import {
   combineReducers,
   applyMiddleware,
 } from "redux";
-//import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
@@ -11,8 +10,10 @@ import {
   productDetailsReducers,
 } from "./reducers/ProductReducers";
 import { cartReducer } from "./reducers/CartReducers";
-import { userLoginReducers } from "./reducers/UserReducers";
-import { userRegisterReducers } from "./reducers/UserReducers";
+import {
+  userLoginReducers,
+  userRegisterReducers,
+} from "./reducers/UserReducers";
 
 const reducer = combineReducers({
   productList: productListReducers,
@@ -28,6 +29,7 @@ if (localStorage.getItem("cartItems")) {
     cartItemsFromStorage = JSON.parse(localStorage.getItem("cartItems"));
   } catch (e) {
     console.log("Error parsing cart items from local storage:", e);
+    cartItemsFromStorage = [];
   }
 } else {
   localStorage.setItem("cartItems", JSON.stringify(cartItemsFromStorage));
@@ -41,7 +43,9 @@ const initialState = {
   cart: { cartItems: cartItemsFromStorage },
   userLogin: { userInfo: userInfoFromStorage },
 };
+
 const middleware = [thunk];
+
 const store = createStore(
   reducer,
   initialState,

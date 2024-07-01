@@ -13,13 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 function Header({ theme, setTheme, searchResults, setSearchResults }) {
-  //const [searchResults, setSearchResults] = useState("");
   const handleSearch = (e) => {
     setSearchResults(e.target.value);
   };
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const dispatch = useDispatch();
+
   const logoutHandler = () => {
     dispatch(logout());
   };

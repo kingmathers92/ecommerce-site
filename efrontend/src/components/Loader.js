@@ -12,6 +12,7 @@ function Loader() {
         margin: "auto",
         display: "block",
       }}
+      aria-label="Loading"
     >
       <span className="sr-only">Loading...</span>
     </Spinner>

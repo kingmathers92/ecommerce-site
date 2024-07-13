@@ -144,10 +144,6 @@ def get_user_by_id(request, pk):
         return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
-# This is your test secret API key.
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
 class StripeCheckoutView(APIView):
     """
     Endpoint to handle Stripe checkout session creation.
